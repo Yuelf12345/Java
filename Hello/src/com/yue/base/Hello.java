@@ -1,5 +1,6 @@
 package com.yue.base;
 
+import com.yue.base.*; // 导入所有
 import com.yue.base.Demo1;
 
 public class Hello {
