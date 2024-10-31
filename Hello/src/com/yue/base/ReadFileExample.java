@@ -25,7 +25,6 @@ public class ReadFileExample {
 
         writeFile(filePath);
 
-
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -64,8 +63,53 @@ public class ReadFileExample {
             bw.write("Hello, World!");
             bw.newLine(); // 换行
             bw.write("This is a test file.");
+            bw.newLine();
+            bw.write("今天天气真好!");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void createDir(String dir) {
+        File d = new File(dir);
+        // 检查目录是否存在，如果不存在则创建目录
+        if (!d.exists()) {
+            d.mkdirs();
+        }
+    }
+
+    public static void readDir(String filePath) {
+        File dir = new File(filePath);
+        if (dir.exists() && dir.isDirectory()) {
+            readFilesRecursively(dir);
+        } else {
+            System.out.println("指定的路径不是一个有效的目录: " + filePath);
+        }
+    }
+
+    private static void readFilesRecursively(File dir) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    readFilesRecursively(file); // 递归读取子目录
+                } else {
+                    System.out.println("文件: " + file.getAbsolutePath());
+                }
+            }
+        }
+    }
+
+    public static void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("文件删除成功！");
+            } else {
+                System.out.println("文件删除失败！");
+            }
+        } else {
+            System.out.println("文件不存在！");
         }
     }
 }
